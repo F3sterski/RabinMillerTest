@@ -2,11 +2,21 @@ import sys
 import random
 from fractions import gcd
 
+inout_file = open("wejscie.txt", "r")
+output_file = open("wyjscie.txt", "w")
+number1 = inout_file.readline()
+number2 = inout_file.readline()
+number3 = inout_file.readline()
+if number1 != "":
+    number1 = long(number1)
+if number2 != "":
+    number2 = long(number2)
+if number3 != "":
+    number3 = long(number3)
+
 if len(sys.argv)>1:
     if sys.argv[1] == "-f":
         print "Fermat test"
-        inout_file = open("wejscie.txt", "r")
-        output_file = open("wyjscie.txt", "w")
         number1 = inout_file.readline()
         number1 = long(number1)
         k = 0
@@ -35,19 +45,10 @@ if len(sys.argv)>1:
     else:
         print "invalid param"
 else:
-    inout_file = open("wejscie.txt", "r")
-    output_file = open("wyjscie.txt", "w")
-    number1 = inout_file.readline()
-    number2 = inout_file.readline()
-    number3 = inout_file.readline()
     if number3:
         print "option 3"
-        number1 = long(number1)
-        number2 = long(number2)
-        number3 = long(number3)
         number2 = (number2*number3)-1
         for i in range(0, 40):
-            print i
             k = 0
             b_before = 0
             first = True
@@ -77,10 +78,7 @@ else:
         output_file.write("prawdopodobnie pierwsza")
     elif number2:
         print "option 2"
-        number1 = long(number1)
-        number2 = long(number2)
-        for i in range(0, 40):
-            print i
+        for i in range(0, 400000):
             k = 0
             b_before = 0
             first = True
@@ -94,8 +92,6 @@ else:
                 k += 1
                 m /= 2
             bj = pow(a, m, number1)
-            if bj == 1 | bj == number1-1:
-                continue
             for j in range(0, k):
                 bj_before = bj
                 bj = pow(bj, 2, number1)
@@ -110,7 +106,6 @@ else:
         output_file.write("prawdopodobnie pierwsza")
     elif number1:
         print "option 1"
-        number1 = long(number1)
         for i in range(0, 40):
             k = 0
             b_before = 0
