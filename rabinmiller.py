@@ -46,6 +46,7 @@ else:
                 k += 1
                 m /= 2
             bj = pow(a, m, number1)
+
             if bj == 1 | bj == number1-1:
                 continue
             for j in range(0, k):
@@ -65,17 +66,32 @@ else:
         for i in range(0, 40):
             k = 0
             b_before = 0
+            first = True
             a = random.randint(2, number1-1)
             if gcd(a, number1) != 1:
                 ret = gcd(a, number1)
                 output_file.write(str(ret))
                 exit()
             m = number2
-            b_before = pow(a, m, number1)
-            bj = pow(a, 8*m, number1)
-            ret = gcd(bj, b_before)
-            if ret != 1 | ret != number1:
-                output_file.write(str(740876531))
+            while m % 2 != 1:
+                k += 1
+                m /= 2
+            bj = pow(a, m, number1)
+            if bj != 1:
+                output_file.write("liczba r:" + str(number2) + " nie jest wykladnikiem uniwersalnym: (" + str(a) + "^" + str(number2) + ") mod " + str(number1) + " = " + str(bj))
+                exit()
+            if bj == 1 | bj == number1-1:
+                continue
+            for j in range(0, k):
+                bj_before = bj
+                bj = pow(bj, 2, number1)
+                if bj == 1 & first:
+                    b_before = bj_before
+                    first = False
+                    break
+            ret = gcd(b_before-1, number1)
+            if ret != 1:
+                output_file.write(str(ret))
                 exit()
         output_file.write("prawdopodobnie pierwsza")
     elif number1:
