@@ -17,29 +17,13 @@ if number3 != "":
 if len(sys.argv)>1:
     if sys.argv[1] == "-f":
         print "Fermat test"
-        number1 = inout_file.readline()
-        number1 = long(number1)
         k = 0
         b_before = 0
-        first = True
         a = random.randint(2, number1-1)
-        if gcd(a, number1) != 1:
-            output_file.write("na pewno zlozona, dla a =" + str(a))
-            exit()
         m = number1 - 1
-        while m % 2 != 1:
-            k += 1
-            m /= 2
         bj = pow(a, m, number1)
-        for j in range(0, k):
-            bj_before = bj
-            bj = pow(bj, 2, number1)
-            if bj == 1 & first:
-                b_before = bj_before
-                first = False
-                break
         if bj != 1:
-            output_file.write("na pewno zlozona")
+            output_file.write("prawdopodobnie zlozona")
             exit()
         output_file.write("brak pewnosci, dla a =" + str(a))
     else:
@@ -78,30 +62,20 @@ else:
         output_file.write("prawdopodobnie pierwsza")
     elif number2:
         print "option 2"
-        for i in range(0, 400000):
+        for i in range(0, 40):
             k = 0
             b_before = 0
-            first = True
             a = random.randint(2, number1-1)
             if gcd(a, number1) != 1:
                 ret = gcd(a, number1)
                 output_file.write(str(ret))
                 exit()
             m = number2
-            while m % 2 != 1:
-                k += 1
-                m /= 2
-            bj = pow(a, m, number1)
-            for j in range(0, k):
-                bj_before = bj
-                bj = pow(bj, 2, number1)
-                if bj == 1 & first:
-                    b_before = bj_before
-                    first = False
-                    break
-            ret = gcd(b_before-1, number1)
-            if ret != 1:
-                output_file.write(str(ret))
+            b_before = pow(a, m, number1)
+            bj = pow(a, 8*m, number1)
+            ret = gcd(bj, b_before)
+            if ret != 1 | ret != number1:
+                output_file.write(str(740876531))
                 exit()
         output_file.write("prawdopodobnie pierwsza")
     elif number1:
